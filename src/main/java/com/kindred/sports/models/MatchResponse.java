@@ -8,13 +8,19 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ContestResponse {
-    @JsonProperty
-    private List<Proposition> propositions;
+public class MatchResponse {
+    @JsonProperty("view")
+    private View view;
 
-    private List<ContestGroup> contestGroups;
-
-    public List<ContestGroup> getContestGroups() {
-        return CategoryResponse.View.contestGroups;
+    public List<Match> getMatches() {
+        return view.getMatches();
     }
+
+
+
+
+
+
+
+
 }

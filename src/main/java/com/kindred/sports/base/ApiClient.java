@@ -19,6 +19,8 @@ public class ApiClient {
         return given()
                 .header("Jurisdiction", "EE")
                 .queryParams(queryParams)
+                .log().all()
                 .get(endpoint);
+
     }
 }

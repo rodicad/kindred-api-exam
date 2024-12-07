@@ -8,11 +8,11 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true) // Ignore fields not mapped in Sport
-public class ContestGroup {
+public class View {
+    @JsonProperty("matches")
+    private  List<Match> matches;
 
-    @JsonProperty("identifier") //
-    private String identifier;
-
-    @JsonProperty("contests")
-    private List<Contest> contests;
+    public  List<Match> getMatches() {
+        return matches;
+    }
 }

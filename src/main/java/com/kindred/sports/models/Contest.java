@@ -12,6 +12,9 @@ public class Contest {
     @JsonProperty("contestKey")
     private String contestKey;
 
+    @JsonProperty("name")
+    private String name;
+
     @JsonProperty("propositions")
     private List<Proposition> propositions;
 
@@ -19,7 +22,5 @@ public class Contest {
         return propositions;
     }
 
-    private static class Proposition {
-        @JsonProperty("propositionType")
-        private String propositionType;
+
 }

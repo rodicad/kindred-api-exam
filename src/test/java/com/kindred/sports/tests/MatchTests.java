@@ -1,7 +1,9 @@
 package com.kindred.sports.tests;
 
 import com.kindred.sports.base.BaseTest;
-import com.kindred.sports.models.CategoryResponse;
+import com.kindred.sports.models.Category;
+import com.kindred.sports.models.Match;
+import com.kindred.sports.models.MatchResponse;
 import com.kindred.sports.services.CategoriesService;
 import com.kindred.sports.utils.FileUtils;
 import org.testng.Assert;
@@ -18,23 +20,31 @@ public class MatchTests extends BaseTest {
         List<String> sports = FileUtils.readSportsFromFile("src/test/resources/sports.txt");
 
         for (String sport : sports) {
-            CategoryResponse matchResponse = matchesService.getCategoriesForSport(sport);
+            MatchResponse matchResponse = matchesService.getCategoriesForSport(sport);
             Assert.assertNotNull(matchResponse.getMatches(), "Match categories should not be null");
-            Assert.assertTrue(matchResponse.getMatches().size() > 0, "There should be matches for "+ sport);
-            for (CategoryResponse.Match match : matchResponse.getMatches()) {
-                Assert.assertTrue(match.getMatchCategories().size() > 0, "There should be matches for "+ sport);
-                System.out.println("For sport: "+ sport + ", match with id:  "+match.getIdentifier()+" has: "+ match.getMatchCategories().size()+ " categories");
+            Assert.assertTrue(matchResponse.getMatches().size() > 0, "There should be matches for " + sport);
+            for (Match match : matchResponse.getMatches()) {
+                Assert.assertTrue(match.getMatchCategories().size() > 0, "There should be matches for " + sport);
+                System.out.println("For sport: " + sport + ", match with id:  " + match.getIdentifier() + " has: " + match.getMatchCategories().size() + " categories");
             }
 
 
         }
-//
-//        MatchResponse matchResponse = matchesService.getMatchesForSport("Football");
-//        Assert.assertNotNull(matchResponse.getMatches(), "Match categories should not be null");
-//        Assert.assertTrue(matchResponse.getMatches().size() > 0, "There should be matches for football");
-//        System.out.println("how many matches: "+ matchResponse.getMatches().size());
-//        System.out.println("first contest: "+ matchResponse.getMatches().get(0).getContestGroups());
-
     }
+
+    @Test
+    public void testGetCategoriesForFootball() throws IOException {
+        MatchResponse matchResponse = matchesService.getCategoriesForSport("football");
+        Assert.assertNotNull(matchResponse.getMatches(), "Match categories should not be null");
+              Assert.assertTrue(matchResponse.getMatches().size() > 0, "There should be matches for Football ");
+                for (Match match : matchResponse.getMatches()) {
+                    for (Category category : match.getCategories()) {
+                        System.out.println("category id:  : "+category.getCategoryRn());
+                }
+
+
+            }
+    }
+
 
 }

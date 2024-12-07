@@ -16,9 +16,25 @@ public class Match {
     private String categoryRn;
 
     @JsonProperty("children")
-    private List<CategoryResponse.Category> matchCategories; // Nested leagues
+    private List<Category> matchCategories;
 
-    public List<CategoryResponse.Category> getCategories() {
+    @JsonProperty("contestGroups")
+    private List<ContestGroup> contestGroups;
+
+    public List<ContestGroup> getContestGroups() {
+        return contestGroups;
+    }
+
+
+    public String getCategoryRn() {
+        return categoryRn;
+    }
+    public String getIdentifier() {
+        return identifier;
+    }
+    public List<Category> getCategories() {
         return matchCategories;
+
+
     }
 }

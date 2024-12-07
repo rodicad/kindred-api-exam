@@ -1,0 +1,11 @@
+Football
+AussieRules
+Basketball
+Baseball
+Tennis
+Volleyball
+Golf
+RugbyLeague
+Cricket
+Badminton
+TableTennis

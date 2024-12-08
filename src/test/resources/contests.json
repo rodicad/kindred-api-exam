@@ -1,0 +1,51 @@
+[
+  {
+    "testName": "Verify that each contest in Football Italy Serie A has at least one propositionType: 1x2",
+    "queryParams": {
+      "category": "football:italy:serie_a",
+      "clientOffset": "-60",
+      "_typ": "GetLobbyPageView"
+    },
+    "propositionType": "1x2"
+  },
+  {
+    "testName": "Verify that each contest in Football Italy Serie B has at least one propositionType: 2x1",
+    "queryParams":{
+      "category": "football:italy:serie_b",
+      "clientOffset": "-60",
+      "_typ": "GetLobbyPageView"
+    },
+    "propositionType": "1x2"
+  },
+  {
+    "testName": "Verify that each contest in American Football NFL has A has at least one propositionType: 1x2",
+    "queryParams":{
+      "category": "americanfootball:nfl",
+      "clientOffset": "-60",
+      "_typ": "GetLobbyPageView"
+    },
+    "propositionType": "1x2"
+  },
+
+  {
+    "testName": "Verify that each contest in Waterpolo Italy Serie A1 has at least one propositionType: 2x1",
+    "queryParams":{
+      "category": "waterpolo:italy_serie_a1",
+      "clientOffset": "-60",
+      "_typ": "GetLobbyPageView"
+    },
+    "propositionType": "1x2"
+  },
+
+  {
+    "testName": "Verify that each contest in Rugby UK NFL_Chalenge_Cup has at least one propositionType: 2x1",
+    "queryParams": {
+      "category": "rugbyleague:united_kingdom:rfl_challenge_cup",
+      "clientOffset": "-60",
+      "_typ": "GetLobbyPageView"
+      },
+    "propositionType": "1x2"
+    }
+ ]
+
+

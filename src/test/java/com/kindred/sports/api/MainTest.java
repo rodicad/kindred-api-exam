@@ -1,35 +1,35 @@
 package com.kindred.sports.api;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 
 public class MainTest {
     public static void main(String[] args) {
         String brokenUrl = "https://sportsbff-ams.kindredext.net/sports-api/api/v1/views/contest-page?_typ=GetContestWithPricesReq&contestKey=cc0a4a6a9c4e6dd181c6b27961d80f2f";
         String comparisonUrl = "https://www.unibet.ee/betting/odds/sportlobby/default/Football/football:italy:serie_a";
-//        Response response = (Response) RestAssured.given() // Log request and response
-//                .header("Jurisdiction","EE")
-//                .when()
-//                .get(brokenUrl);
-//
-//        // Print the response headers and body for debugging
-//        System.out.println("Status Code: " + response.getStatusCode());
+        Response response = (Response) RestAssured.given() // Log request and response
+                //.header("Jurisdiction","EE")
+                .when()
+                .get(brokenUrl);
+
+        // Print the response headers and body for debugging
+        System.out.println("Status Code: " + response.getStatusCode());
 //        System.out.println("Response Headers: " + response.getHeaders());
 //        List<String> propositionTypes = response.jsonPath().getList("contest.propositions.propositionType");
 //        System.out.println( propositionTypes.contains("1x2"));
 
 
-        String baseUrl = "https://sportsbff-ams.kindredext.net/sports-api/api/v1/views/lobby";
-        given().header("Jurisdiction", "EE")
-                .queryParam("category", "football:italy:serie_a")
-        .when()
-                .get(baseUrl)
-        .then()
-                .log().all()
-                .assertThat()
-                    .statusCode(200)
-                    .body("view.matches.size()", equalTo(7))
-                    .body("view.matches.contestGroups.contests.propositions.size()", equalTo(7));
+//        String baseUrl = "https://sportsbff-ams.kindredext.net/sports-api/api/v1/views/lobby";
+//        given().header("Jurisdiction", "EE")
+//                .queryParam("category", "football:italy:serie_a")
+//        .when()
+//                .get(baseUrl)
+//        .then()
+//                .log().all()
+//                .assertThat()
+//                    .statusCode(200)
+//                    .body("view.matches.size()", equalTo(7))
+//                    .body("view.matches.contestGroups.contests.propositions.size()", equalTo(7));
 
 
 

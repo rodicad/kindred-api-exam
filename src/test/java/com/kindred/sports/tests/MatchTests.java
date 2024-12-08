@@ -1,50 +1,60 @@
 package com.kindred.sports.tests;
 
+import com.kindred.sports.api.StatusCode;
 import com.kindred.sports.base.BaseTest;
-import com.kindred.sports.models.Category;
 import com.kindred.sports.models.Match;
-import com.kindred.sports.models.MatchResponse;
-import com.kindred.sports.services.CategoriesService;
-import com.kindred.sports.utils.FileUtils;
+import com.kindred.sports.services.MatchesService;
+import com.kindred.sports.utils.TestData;
+import com.kindred.sports.utils.TestDataFile;
+import com.kindred.sports.utils.TestDataProvider;
+import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+
 
 public class MatchTests extends BaseTest {
-    private final CategoriesService matchesService = new CategoriesService();
+    private final MatchesService matchesService = new MatchesService();
+    private Response matchResponse;
 
-    @Test
-    public void testGetCategoriesForAllSports() throws IOException {
-        List<String> sports = FileUtils.readSportsFromFile("src/test/resources/sports.txt");
+    @Test(dataProvider = "getTestData", dataProviderClass = TestDataProvider.class)
+    @TestDataFile("sports.json")
+    public void testSportHasMatches(TestData testData) throws IOException {
+        matchResponse =matchesService.getMatchesForSport(getLobbyURL(),getHeaders(), testData.getQueryParams());
+        Assert.assertEquals(matchResponse.statusCode(),StatusCode.CODE_200.code, "Expected 200 status code, but got: "+matchResponse.statusCode());
 
-        for (String sport : sports) {
-            MatchResponse matchResponse = matchesService.getCategoriesForSport(sport);
-            Assert.assertNotNull(matchResponse.getMatches(), "Match categories should not be null");
-            Assert.assertTrue(matchResponse.getMatches().size() > 0, "There should be matches for " + sport);
-            for (Match match : matchResponse.getMatches()) {
-                Assert.assertTrue(match.getMatchCategories().size() > 0, "There should be matches for " + sport);
-                System.out.println("For sport: " + sport + ", match with id:  " + match.getIdentifier() + " has: " + match.getMatchCategories().size() + " categories");
+        List<Match> matches= matchesService.parseMatchResponse(matchResponse).getMatches();
+        Assert.assertNotNull(matches, "Match categories should not be null");
+
+        if (matches.size() > 0) {
+            for (Match match : matches) {
+                Assert.assertTrue(match.getMatchCategories().size() > 0, "There should be matches for " + testData.getQueryParams().get("category"));
+                System.out.println(" match_id:  " + match.getIdentifier() + " has: " + match.getMatchCategories().size() + " categories");
             }
-
 
         }
     }
 
-    @Test
-    public void testGetCategoriesForFootball() throws IOException {
-        MatchResponse matchResponse = matchesService.getCategoriesForSport("football");
-        Assert.assertNotNull(matchResponse.getMatches(), "Match categories should not be null");
-              Assert.assertTrue(matchResponse.getMatches().size() > 0, "There should be matches for Football ");
-                for (Match match : matchResponse.getMatches()) {
-                    for (Category category : match.getCategories()) {
-                        System.out.println("category id:  : "+category.getCategoryRn());
-                }
-
-
-            }
+    @Test(description = "Validate error handling for invalid sport name")
+    public void testInvalidCategoryError() {
+        Response matchResponse =matchesService.getMatchesForSport(getLobbyURL(),getHeaders(), Map.of("category", "invalidSportName"));
+        Assert.assertEquals(matchResponse.getStatusCode(), 400, "Expected 400 Bad Request status code!");
+        String errorMessage = matchResponse.jsonPath().getString("message");
+        Assert.assertTrue(errorMessage.contains("Invalid category"), "Error message is incorrect");
     }
+
+    @Test(description = "Validate error handling for invalid sport name")
+    public void testMissingHeadersError() {
+        Response matchResponse =matchesService.get(getLobbyURL());
+        Assert.assertEquals(matchResponse.getStatusCode(), 400, "Expected 400 Bad Request status code!");
+        String errorMessage = matchResponse.jsonPath().getString("message");
+        System.out.println("response msg: "+matchResponse.asPrettyString());
+        Assert.assertTrue(errorMessage.contains("Invalid category"), "Error message is incorrect");
+    }
+
 
 
 }

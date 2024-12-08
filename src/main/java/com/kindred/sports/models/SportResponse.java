@@ -10,15 +10,8 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SportResponse {
     @JsonProperty("items")
-    private List<Sport> items;
+    private List<Sport> sports;
 
-    @Data
-    @JsonIgnoreProperties(ignoreUnknown = true) // Ignore fields not mapped in Sport
-    public static class Sport {
-        @JsonProperty("displayName") // Map "displayName" to "name"
-        private String name;
-        @JsonProperty("key") // Map "key" from JSON
-        private String sportKey;
-    }
+
 
 }

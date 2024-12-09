@@ -3,28 +3,20 @@ package com.kindred.sports.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true) // Ignore fields not mapped in Sport
 public class Category {
-    @JsonProperty("identifier") //
-    private String identifier;  // Category name
+   @Getter
+    @JsonProperty("identifier")
+    private String identifier;
 
+    @Getter
     @JsonProperty("categoryRn")
     private String categoryRn;
 
+    @Getter
     @JsonProperty("header")
     private String header;
-
-    public String getCategoryRn() {
-        return categoryRn;
-    }
-
-    public String getIdentifier() {
-        return identifier;
-    }
-
-    public String getHeader() {
-        return header;
-    }
 }

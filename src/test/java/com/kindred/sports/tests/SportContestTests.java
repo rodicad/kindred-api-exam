@@ -9,17 +9,18 @@ import com.kindred.sports.utils.TestDataFile;
 import com.kindred.sports.utils.TestDataProvider;
 import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.List;
+
+import static org.testng.Assert.assertTrue;
 
 public class SportContestTests extends BaseTest {
     private final ContestService contestService = new ContestService();
     private Response contestResponse;
 
-
-    @BeforeSuite
+    @BeforeClass
     public void printSuiteDescription() {
         System.out.println("Executing Test Suite: Sports Contest Test Suite");
         System.out.println("Description: This suite validates  API calls against specific contest IDs, provided  in the contestkeys.json data file. .");
@@ -57,8 +58,11 @@ public class SportContestTests extends BaseTest {
 
         ContestResponse contest = contestService.parseContestResponse(contestResponse);
         List<Proposition> propositions = contest.getContest().getPropositions();
-        System.out.println("Propositions count: " + propositions.size());
-
+        System.out.println("Contest with name: "+contest.getContest().getName()+", has a total of "+propositions.size()+" propositions!");
+        boolean exists = propositions.stream()
+                .anyMatch(proposition -> testData.getPropositionType().equals(proposition.getPropositionType()));
+        assertTrue(exists, "In league: "+testData.getQueryParams().get("category")+", none of the " + propositions.size() + " propositions, is of type: " +
+                testData.getPropositionType());
 
     }
 

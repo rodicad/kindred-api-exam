@@ -15,76 +15,42 @@ public class MatchesService extends ApiClient {
     /**
      * This method processes the sport's matches in API response!.
      *
-     * @param matches
      */
     public void processMatches(List<Match> matches) {
         if (matches == null || matches.isEmpty()) {
             System.out.println("No matches available for category: ");
             return;
         }
+        System.out.println("Matches available: "+matches.size());
         matches.forEach(this::processMatch);
     }
 
 
     /**
      * This method processes a single match in API response!.
-     * @param match
      */
     private void processMatch(Match match) {
-        System.out.println("Match ID: " + match.getIdentifier());
 
-        List<Category> categories = match.getCategories();
-        if (categories == null || categories.isEmpty()) {
-            System.out.println("No categories found for match: " + match.getIdentifier());
-        } else {
-            System.out.println("Categories count: " + categories.size());
+        List<Category> categories = match.getMatchCategories();
+        if (categories != null && !categories.isEmpty()) {
+            System.out.println("Match with ID:  "+match.getIdentifier()+", has " + categories.size()+"categories.");
             return;
         }
         List<ContestGroup> contestGroups = match.getContestGroups();
-        if (contestGroups == null || contestGroups.isEmpty()) {
-            System.out.println("No contest groups found for match: " + match.getIdentifier());
-        } else {
-            System.out.println("Contest groups count: " + contestGroups.size());
+        if (contestGroups != null &&  !contestGroups.isEmpty()) {
+            System.out.println("Match with ID: "+match.getIdentifier()+", has " + contestGroups.size()+" contest groups.");
             contestGroups.forEach(this::processContestGroup);
-
         }
 
     }
 
     /**
-     * This method processes a match'scontest group in API response!.
-     * @param contestGroup
+     * This method processes a match's contest group in API response!.
      */
     private void processContestGroup(ContestGroup contestGroup) {
         List<Contest> contests = contestGroup.getContests();
-        if (contests == null || contests.isEmpty()) {
-            System.out.println("No contests found in contest group.");
-            return;
+        if (contests != null && !contests.isEmpty()) {
+            System.out.println("Contest Group with ID: "+contestGroup.getIdentifier()+", has " + contests.size()+" contests.");
         }
-        System.out.println("Contests count: " + contests.size());
-        contests.forEach(this::processContest);
     }
-
-    /**
-     * This method processes a contestgroup's contest in API response!.
-     * @param contest
-     */
-    private void processContest(Contest contest) {
-        List<Proposition> propositions = contest.getPropositions();
-        if (propositions == null || propositions.isEmpty()) {
-            System.out.println("No propositions found for contest.");
-            return;
-        }
-        System.out.println("Propositions count: " + propositions.size());
-        propositions.forEach(this::processProposition);
-    }
-
-    /**
-     * This method processes a contest's proposition in API response!.
-     * @param proposition
-     */
-    private void processProposition(Proposition proposition) {
-        System.out.println("Proposition type: " + proposition.getPropositionType());
-    }
-
 }

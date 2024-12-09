@@ -1,4 +1,4 @@
-# KindredQAAutomationProject
+# Kindred QA Automation Basic Project
 
 ## Overview
 

@@ -7,20 +7,12 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class MatchResponse {
-    @JsonProperty("view")
-    private View view;
+@JsonIgnoreProperties(ignoreUnknown = true) // Ignore fields not mapped in Sport
+public class View {
+    @JsonProperty("matches")
+    private List<Match> matches;
 
     public List<Match> getMatches() {
-        return view.getMatches();
+        return matches;
     }
-
-
-
-
-
-
-
-
 }

@@ -1,7 +1,6 @@
 package com.kindred.sports.tests;
 
 import com.kindred.sports.api.StatusCode;
-import com.kindred.sports.base.BaseTest;
 import com.kindred.sports.models.Match;
 import com.kindred.sports.services.MatchesService;
 import com.kindred.sports.utils.TestData;
@@ -23,13 +22,12 @@ public class ContestsTests extends BaseTest {
 
 
 
-
     @Test(dataProvider = "getTestData", dataProviderClass = TestDataProvider.class)
     @TestDataFile("contests.json")
     public void testPropositionTypeInContest(TestData testData) {
-        matchResponse = matchesService.getContestsForSportCategory(getLobbyURL(),getHeaders(), testData.getQueryParams());
-        Assert.assertEquals(matchResponse.statusCode(), StatusCode.CODE_200, "Expected "+StatusCode.CODE_200.code+" status code, but got: "+matchResponse.statusCode());
-        List<Match> matches= matchesService.parseMatchResponse(matchResponse).getMatches();
+        matchResponse = matchesService.get(getLobbyURL(), getHeaders(), testData.getQueryParams());
+        Assert.assertEquals(matchResponse.statusCode(), StatusCode.CODE_200.code, "Expected " + StatusCode.CODE_200.code + " status code, but got: " + matchResponse.statusCode());
+        List<Match> matches = matchesService.parseMatchResponse(matchResponse).getMatches();
         matchesService.processMatches(matches);
 
         if (matches != null) {
@@ -38,7 +36,7 @@ public class ContestsTests extends BaseTest {
                         contestGroup.getContests().forEach(contest -> {
                             boolean exists = contest.getPropositions().stream()
                                     .anyMatch(proposition -> testData.getPropositionType().equals(proposition.getPropositionType()));
-                            assertTrue(exists, "None of the "+contestGroup.getContests().size()+ " contests, has a propositionType: " +
+                            assertTrue(exists, "None of the " + contestGroup.getContests().size() + " contests, has a propositionType: " +
                                     testData.getPropositionType());
                         })
                 );
@@ -46,30 +44,32 @@ public class ContestsTests extends BaseTest {
 
         }
     }
+
     //@Test(dataProvider = "getTestData", dataProviderClass = TestDataProvider.class)
     //@TestDataFile("contests.json")
     @Test
     public void testMissingHeadersInContest() {
 
-        //String url = "https://sportsbff-ams.kindredext.net/sports-api/api/v1/views/contest-page";
+        String url = "https://sportsbff-ams.kindredext.net/sports-api/api/v1/views/contest-page";
         // Second request with query parameters passed in Map
-        Map<String, String> params = Map.of(
-                "category", "football:italy:serie_a",
-                "clientOffset", "-60",
-                "_typ", "GetLobbyPageView"
-        );
-//        Map<String, String> params2 = Map.of(
-//                "_typ", "GetContestWithPricesReq",
-//                "contestKey", "cc0a4a6a9c4e6dd181c6b27961d80f2f"
+//        Map<String, String> params = Map.of(
+//                "category", "football:italy:serie_a",
+//                "clientOffset", "-60",
+//                "_typ", "GetLobbyPageView"
 //        );
+        Map<String, String> params = Map.of(
+                "_typ", "GetContestWithPricesReq",
+                "contestKey", "cc0a4a6a9c4e6dd181c6b27961d80f2f"
+        );
 
 
-        String urll="https://sportsbff-ams.kindredext.net/sports-api/api/v1/views/lobby";
+        //String urll="https://sportsbff-ams.kindredext.net/sports-api/api/v1/views/lobby";
         Response response = RestAssured.given()
-        .queryParams(params).header("Jurisdiction", "en-GB")
-                .log().all().get(urll);
-        System.out.println("response: "+response.statusCode());
-        System.out.println("response: "+response.asString());
+                .queryParams(params)
+                .header("Jurisdiction", "UK")
+                .log().all().get(url);
+        System.out.println("response: " + response.statusCode());
+        System.out.println("response: " + response.asString());
 
 
 //        matchResponse = matchesService.getContestsForSportCategory(getLobbyURL(),null, testData.getQueryParams());

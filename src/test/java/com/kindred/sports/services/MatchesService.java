@@ -5,23 +5,16 @@ import com.kindred.sports.models.*;
 import io.restassured.response.Response;
 
 import java.util.List;
-import java.util.Map;
 
 public class MatchesService extends ApiClient {
-    public Response getMatchesForSport(String url, Map<String,String> headers, Map<String, String> queryParams) {
-        return get(url,headers,queryParams );
-    }
-
-    public Response getContestsForSportCategory(String url, Map<String,String> headers, Map<String, String> queryParams) {
-        return get(url,headers,queryParams );
-    }
 
     public MatchResponse parseMatchResponse(Response response) {
         return response.as(MatchResponse.class);
     }
 
     /**
-     * This method processes the matches for a sport, not a category!.
+     * This method processes the sport's matches in API response!.
+     *
      * @param matches
      */
     public void processMatches(List<Match> matches) {
@@ -33,6 +26,10 @@ public class MatchesService extends ApiClient {
     }
 
 
+    /**
+     * This method processes a single match in API response!.
+     * @param match
+     */
     private void processMatch(Match match) {
         System.out.println("Match ID: " + match.getIdentifier());
 
@@ -54,28 +51,38 @@ public class MatchesService extends ApiClient {
 
     }
 
-
-
+    /**
+     * This method processes a match'scontest group in API response!.
+     * @param contestGroup
+     */
     private void processContestGroup(ContestGroup contestGroup) {
         List<Contest> contests = contestGroup.getContests();
         if (contests == null || contests.isEmpty()) {
             System.out.println("No contests found in contest group.");
             return;
         }
-        System.out.println("Contests count: "+contests.size());
+        System.out.println("Contests count: " + contests.size());
         contests.forEach(this::processContest);
     }
 
+    /**
+     * This method processes a contestgroup's contest in API response!.
+     * @param contest
+     */
     private void processContest(Contest contest) {
         List<Proposition> propositions = contest.getPropositions();
         if (propositions == null || propositions.isEmpty()) {
             System.out.println("No propositions found for contest.");
             return;
         }
-        System.out.println("Propositions count: "+propositions.size());
+        System.out.println("Propositions count: " + propositions.size());
         propositions.forEach(this::processProposition);
     }
 
+    /**
+     * This method processes a contest's proposition in API response!.
+     * @param proposition
+     */
     private void processProposition(Proposition proposition) {
         System.out.println("Proposition type: " + proposition.getPropositionType());
     }

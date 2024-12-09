@@ -32,7 +32,6 @@ public class MainTest {
 //                    .body("view.matches.contestGroups.contests.propositions.size()", equalTo(7));
 
 
-
 //        Response response = given()
 //                    .header("Jurisdiction", "EE")
 //                    //.queryParam("_typ", "GetLobbyPageView")
@@ -44,7 +43,6 @@ public class MainTest {
 //        response.then().statusCode(201);
 
 
-
         // Print the response body to check the match details
 //        System.out.println("Response Body: " + response.getBody().asString());
 //
@@ -54,7 +52,6 @@ public class MainTest {
 //        List<Map<String, Object>> matches = response.jsonPath().getList("view.matches");
 //        everyItem(matches.get("contestGroups").get("contests")).satisfies(match -> {
 //        System.out.println(matches.size());
-
 
 
     }

@@ -1,4 +1,4 @@
-package com.kindred.sports.base;
+package com.kindred.sports.tests;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,11 +32,11 @@ public class BaseTest {
     }
 
     public String getMenuURL() {
-        return apiBaseUrl+apiMenuPath;
+        return apiBaseUrl + apiMenuPath;
     }
 
     public String getLobbyURL() {
-        return apiBaseUrl+apiLobbyPath;
+        return apiBaseUrl + apiLobbyPath;
     }
 
 
@@ -44,7 +44,8 @@ public class BaseTest {
         String headersJson = props.getProperty("headers");
         ObjectMapper mapper = new ObjectMapper();
         try {
-            headers = mapper.readValue(headersJson, new TypeReference<Map<String, String>>() {});
+            headers = mapper.readValue(headersJson, new TypeReference<Map<String, String>>() {
+            });
         } catch (IOException e) {
             throw new RuntimeException("Failed to parse default headers from config.", e);
         }
@@ -53,9 +54,6 @@ public class BaseTest {
     public Map<String, String> getHeaders() {
         return headers;
     }
-
-
-
 
 
     @BeforeMethod

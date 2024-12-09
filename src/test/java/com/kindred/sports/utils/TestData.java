@@ -3,7 +3,6 @@ package com.kindred.sports.utils;
 import java.util.Map;
 
 
-
 public class TestData {
     private String testName;
     private Map<String, String> queryParams;

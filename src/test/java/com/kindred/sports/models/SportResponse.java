@@ -13,5 +13,4 @@ public class SportResponse {
     private List<Sport> sports;
 
 
-
 }

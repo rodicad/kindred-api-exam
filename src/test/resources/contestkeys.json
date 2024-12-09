@@ -1,0 +1,18 @@
+[
+  {
+    "testName": "Verify that this contest in Football Italy Serie A has at least one propositionType: 1x2",
+    "queryParams": {
+      "contestKey": "cc0a4a6a9c4e6dd181c6b27961d80f2f",
+      "_typ": "GetContestWithPricesReq"
+    },
+    "propositionType": "1x2"
+  },
+  {
+    "testName": "Verify that each contest in Football Italy Serie B has at least one propositionType: 1x2",
+    "queryParams": {
+      "contestKey": "e7c3bd2dc4693322c88c0300fef924bb",
+      "_typ": "GetContestWithPricesReq"
+    },
+    "propositionType": "1x2"
+  }
+]

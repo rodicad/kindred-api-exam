@@ -5,11 +5,19 @@ import java.util.Map;
 
 public class TestData {
     private String testName;
+
+
+
+    private String sportName;
     private Map<String, String> queryParams;
     private String propositionType;
 
     public String getTestName() {
         return testName;
+    }
+
+    public String getSportName() {
+        return sportName;
     }
 
     public void setTestName(String testName) {

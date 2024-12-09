@@ -1,24 +1,28 @@
 [
   {
     "testName": "Verify if Football has matches!",
+    "sportName": "Football",
     "queryParams": {
       "category": "football"
     }
   },
   {
-    "testName": "Verify if AussieRules has matches!",
+    "testName": "Verify if Australian Football has matches!",
+    "sportName": "Australian Football",
     "queryParams": {
       "category": "AussieRules"
     }
   },
   {
     "testName": "Verify if Basketball has matches!",
+    "sportName": "Basketball",
     "queryParams": {
       "category": "Basketball"
     }
   },
   {
     "testName": "Verify if Baseball has matches!",
+    "sportName": "Baseball",
     "queryParams": {
       "category": "Golf"
     }

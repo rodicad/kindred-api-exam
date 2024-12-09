@@ -41,5 +41,10 @@ The project is still in its early stages and there are several areas for improve
 - Improve error handling and data validation
 - Add more API endpoints to test
 
+##Questions and Assumptions
+- When the "Jurisdiction" field is missing from header, requesting the sport list will return an 400 error - I assumed this was expected behavior.
+- When the "Jurisdiction" field is missing from header, requesting the contests for a specific sport and league will return an 404 status code - I assumed this was expected behavior, but why not 400?.
+- When the "Jurisdiction" field is set to invalid value, requesting the matches for a specific sport and league will return an 404 status code - I assumed this was expected behavior, but why not 400?.
+
 # Author
 [Rodica Dan](https://github.com/rodicad)

@@ -1,6 +1,6 @@
 package com.kindred.sports.services;
 
-import com.kindred.sports.base.ApiClient;
+import com.kindred.sports.api.ApiClient;
 import com.kindred.sports.models.*;
 import io.restassured.response.Response;
 

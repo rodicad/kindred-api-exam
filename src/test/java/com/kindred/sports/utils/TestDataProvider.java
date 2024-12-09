@@ -34,7 +34,6 @@ public class TestDataProvider {
                 new File(filePath),
                 objectMapper.getTypeFactory().constructCollectionType(List.class, TestData.class)
         );
-        System.out.println("test data list size: " + testDataList.size());
 
         // Convert List to Object[][] for DataProvider
         Object[][] data = new Object[testDataList.size()][1];

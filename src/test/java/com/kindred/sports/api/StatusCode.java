@@ -5,7 +5,7 @@ public enum StatusCode {
     CODE_201(201, ""),
     CODE_400(400, "Missing required field: name"),
     CODE_401(401, "Invalid access token"),
-    CODE_404(401, "Invalid not found");
+    CODE_404(404, "Invalid not found");
 
 
     public final int code;

@@ -16,16 +16,15 @@ import java.util.Map;
 
 import static org.testng.Assert.assertTrue;
 
-public class ContestsTests extends BaseTest {
-    private final MatchesService matchesService = new MatchesService();
-    private Response matchResponse;
+public class SportMatchesTests extends BaseTest {
+    private MatchesService matchesService = new MatchesService();
 
 
 
     @Test(dataProvider = "getTestData", dataProviderClass = TestDataProvider.class)
-    @TestDataFile("contests.json")
-    public void testPropositionTypeInContest(TestData testData) {
-        matchResponse = matchesService.get(getLobbyURL(), getHeaders(), testData.getQueryParams());
+    @TestDataFile("sportcategories.json")
+    public void testPropositionTypeInCategory(TestData testData) {
+        Response matchResponse =matchesService.get(getLobbyURL(), getHeaders(), testData.getQueryParams());
         Assert.assertEquals(matchResponse.statusCode(), StatusCode.CODE_200.code, "Expected " + StatusCode.CODE_200.code + " status code, but got: " + matchResponse.statusCode());
         List<Match> matches = matchesService.parseMatchResponse(matchResponse).getMatches();
         matchesService.processMatches(matches);
@@ -46,7 +45,7 @@ public class ContestsTests extends BaseTest {
     }
 
     //@Test(dataProvider = "getTestData", dataProviderClass = TestDataProvider.class)
-    //@TestDataFile("contests.json")
+    //@TestDataFile("sportcategories.json")
     @Test
     public void testMissingHeadersInContest() {
 
@@ -81,6 +80,19 @@ public class ContestsTests extends BaseTest {
     public void testInavlidJurisdiction() {
         //TODO
     }
+
+//    @Test(dataProvider = "getTestData", dataProviderClass = TestDataProvider.class)
+//    @TestDataFile("contestkeys.json")
+//    public void testPropositionTypeInSpecificContest(TestData testData) {
+//        ContestService contestService = new ContestService();
+//        Response contestResponse = contestService.get(getContestURL(), getHeaders(), testData.getQueryParams());
+//        ContestResponse contest = contestService.parseContestResponse(contestResponse);
+//        List<Proposition> propositions = contest.getContest().getPropositions();
+//        System.out.println("Propositions count: " + propositions.size());
+//
+//        Assert.assertEquals(contestResponse.statusCode(), StatusCode.CODE_200.code, "Expected " + StatusCode.CODE_200.code + " status code, but got: " + contestResponse.statusCode());
+//
+//    }
 
 
 }

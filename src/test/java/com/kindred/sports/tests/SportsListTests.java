@@ -9,11 +9,9 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class LobbyTests extends BaseTest {
-
+public class SportsListTests extends BaseTest {
     private final SportsService sportsService = new SportsService();
     private Response sportResponse;
-
 
     @Test(description = "Test that the number of available sports is not zero")
     public void testGetAvailableSports() {
@@ -38,6 +36,15 @@ public class LobbyTests extends BaseTest {
 
         long responseTime = sportResponse.getTime();
         Assert.assertTrue(responseTime < 2000, "Response time exceeds 2000ms!");
+    }
+
+
+    @Test(description = "Validate response status code for missing headers")
+    public void testMissingHeaders() {
+        sportResponse = sportsService.get(getMenuURL());
+        Assert.assertEquals(sportResponse.statusCode(), StatusCode.CODE_400.code, "Expected" + StatusCode.CODE_400.code + "status code, but got: " + sportResponse.statusCode());
+        System.out.println(sportResponse.getBody().prettyPrint());
+
     }
 
 
